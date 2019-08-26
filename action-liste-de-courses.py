@@ -5,6 +5,7 @@ import json
 import configparser
 import io
 import requests
+import telegram
 from hermes_python.hermes import Hermes
 from hermes_python.ffi.utils import MqttOptions
 
@@ -84,37 +85,17 @@ def send_sms():
     if not liste:
         return "La liste de courses est vide"
     config = read_configuration_file()
-    smsData = {
-        "user": config['secret']['identifiant_free'],
-        "pass": config['secret']['cle_identification'],
+    telegramData = {
+        "TOKEN": config['secret']['TOKEN'],
+        "CHAT_ID": config['secret']['CHAT_ID'],
         "msg": "Liste de courses: {}".format(", ".join(liste))
     }
-    try:
-        response = requests.get(
-            "https://smsapi.free-mobile.fr/sendmsg",
-            params=smsData,
-            timeout=2
-        )
-    except requests.exceptions.Timeout:
-        return "Le service SMS de free ne répond pas"
-
-    code = response.status_code
-    if code == 200:
-        return "J'ai envoyé la liste de courses par SMS"
-    elif code == 402:
-        return "Désolé, je ne peux pas envoyer trop de SMS"
-    elif code == 403:
-        return "Le service n'est pas activé sur l'espace abonné, "
-        "ou le login ou la clé sont incorrects"
-    elif code == 500:
-        return "Désolé, le service SMS de Free est dans les choux"
-    else:
-        return "Désolé, l'envoi du SMS a échoué avec l'erreur {}".format(
-            response.status_code)
-
+	bot = telegram.Bot(token=telegramData.TOKEN)
+	bot.sendMessage(chat_id=telegramData.CHAT_ID, text=telegramData.msg)
+    
 
 def intent_callback(hermes, intent_message):
-    intent_name = intent_message.intent.intent_name.replace("abienvenu:", "")
+    intent_name = intent_message.intent.intent_name.replace("Loky31:", "")
     result = None
     if intent_name == "addItem":
         result = add_item(intent_message.slots.Item.first().value)
@@ -137,7 +118,7 @@ def intent_callback(hermes, intent_message):
         hermes.publish_continue_session(
             intent_message.session_id,
             "Voulez-vous vraiment purger la liste de courses ?",
-            ["abienvenu:confirmation", "abienvenu:annulation"]
+            ["Loky31:confirmation", "Loky31:annulation"]
         )
 
     if result is not None:
