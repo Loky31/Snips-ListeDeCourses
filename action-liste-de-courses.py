@@ -85,13 +85,12 @@ def send_sms():
     if not liste:
         return "La liste de courses est vide"
     config = read_configuration_file()
-    telegramData = {
-        "TOKEN": config['secret']['TOKEN'],
-        "CHAT_ID": config['secret']['CHAT_ID'],
-        "msg": "Liste de courses: {}".format(", ".join(liste))
+    TOKEN= config['secret']['TOKEN'],
+    CHAT_ID= config['secret']['CHAT_ID'],
+    msg = "Liste de courses: {}".format(", ".join(liste))
     }
-	bot = telegram.Bot(token=telegramData.TOKEN)
-	bot.sendMessage(chat_id=telegramData.CHAT_ID, text=telegramData.msg)
+	bot = telegram.Bot(token=TOKEN)
+	bot.sendMessage(chat_id=CHAT_ID, text=msg)
     
 
 def intent_callback(hermes, intent_message):
