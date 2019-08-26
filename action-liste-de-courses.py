@@ -89,8 +89,8 @@ def send_sms():
     CHAT_ID= config['secret']['CHAT_ID'],
     msg = "Liste de courses: {}".format(", ".join(liste))
     
-	bot = telegram.Bot(token=TOKEN)
-	bot.sendMessage(chat_id=CHAT_ID, text=msg)
+	URL="https://api.telegram.org/bot$TOKEN/sendMessage"
+	curl -s -X POST $URL -d chat_id=$CHAT_ID -d text="$msg"
     
 
 def intent_callback(hermes, intent_message):
