@@ -88,7 +88,7 @@ def send_sms():
     TOKEN= config['secret']['TOKEN'],
     CHAT_ID= config['secret']['CHAT_ID'],
     msg = "Liste de courses: {}".format(", ".join(liste))
-    }
+    
 	bot = telegram.Bot(token=TOKEN)
 	bot.sendMessage(chat_id=CHAT_ID, text=msg)
     
