@@ -89,7 +89,7 @@ def send_sms():
     CHAT_ID= config['secret']['CHAT_ID'],
     msg = "Liste de courses: {}".format(", ".join(liste))
     
-	URL="https://api.telegram.org/bot$TOKEN/sendMessage"
+	URL="https://api.telegram.org/bot{0}/sendMessage".format(TOKEN)
 	curl -s -X POST $URL -d chat_id=$CHAT_ID -d text="$msg"
     
 
