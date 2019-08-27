@@ -12,8 +12,8 @@ from hermes_python.ffi.utils import MqttOptions
 state = {'confirmationPurge': False}
 
 config = read_configuration_file()
-my_token = 'config['secret']['TOKEN']'
-my_chat_id= 'config['secret']['CHAT_ID']'
+my_token = config['secret']['TOKEN']
+my_chat_id= config['secret']['CHAT_ID']
 
 #liste = load_list()
 #if not liste:
