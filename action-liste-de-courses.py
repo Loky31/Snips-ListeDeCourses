@@ -85,22 +85,26 @@ def send():
     if not liste:
         return "La liste de courses est vide"
     config = read_configuration_file()
-    my_token = config['secret']['TOKEN']
-    my_chat_id= config['secret']['CHAT_ID']
-    my_msg = "Liste de courses: {}".format(", ".join(liste))
+    telegramData = {
+        "my_token": config['secret']['token'],
+        "my_chat_id": config['secret']['chat_id'],
+        "msg": "Liste de courses: {}".format(", ".join(liste))
+    }
+    print ("https://api.telegram.org/bot{}/sendMessage?chat_id={}&text={}".format(telegramData.get("my_token"),telegramData.get("my_chat_id"),telegramData.get("msg")))
     try:
         response = requests.get(
-            "https://api.telegram.org/bot{}/sendMessage?chat_id={}&text={}".format(my_token,my_chat_id,my_msg)
-            timeout=2
+            "https://api.telegram.org/bot{}/sendMessage?chat_id={}&text={}".format(telegramData.get("my_token"),telegramData.get("my_chat_id"),telegramData.get("msg"))
         )
-    except requests.exceptions.Timeout:
-        return "Telegram ne répond pas"
+    
+#    except requests.exceptions.Timeout:
+#        return "Telegram ne répond pas"
 
-    if response == my_msg :
-        return "J'ai envoyé la liste de courses par Telegram"    
-    else:
-        return "Oups!!!! Ca n'a pas marché"
-        
+    #code = response.status_code
+#    if response == telegramData[2]:
+         return "J'ai envoyé la liste de courses par Telegram"
+#    else:
+#            return "Oups!!!! Ca n'a pas marché"
+
 def intent_callback(hermes, intent_message):
     intent_name = intent_message.intent.intent_name.replace("Loky31:", "")
     result = None
