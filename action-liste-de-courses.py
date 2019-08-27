@@ -11,6 +11,14 @@ from hermes_python.ffi.utils import MqttOptions
 
 state = {'confirmationPurge': False}
 
+config = read_configuration_file()
+	my_token = 'config['secret']['TOKEN']'
+    my_chat_id= 'config['secret']['CHAT_ID']'
+
+liste = load_list()
+if not liste:
+        return "La liste de courses est vide"
+my_msg = '"Liste de courses: {}".format(", ".join(liste))'
 
 class SnipsConfigParser(configparser.SafeConfigParser):
     def to_dict(self):
@@ -80,17 +88,17 @@ def del_list():
     return "J'ai purgé la liste de courses"
 
 
-def send_sms():
-    liste = load_list()
-    if not liste:
-        return "La liste de courses est vide"
-    config = read_configuration_file()
-    TOKEN= config['secret']['TOKEN'],
-    CHAT_ID= config['secret']['CHAT_ID'],
-    msg = "Liste de courses: {}".format(", ".join(liste))
-    
-	URL="https://api.telegram.org/bot%s/sendMessage" %TOKEN
-	curl -s -X POST $URL -d chat_id=$CHAT_ID -d text="$msg"
+def send(msg = my_msg,chat_id= my_chat_id,token = my_token):
+    #liste = load_list()
+    #if not liste:
+        #return "La liste de courses est vide"
+    #config = read_configuration_file()
+    #my_token = 'config['secret']['TOKEN']'
+    #CHAT_ID= 'config['secret']['CHAT_ID']'
+    #msg = '"Liste de courses: {}".format(", ".join(liste))'
+    #}
+	bot = telegram.Bot(token=TOKEN)
+	bot.sendMessage(chat_id=CHAT_ID, text=msg)
     
 
 def intent_callback(hermes, intent_message):
@@ -103,7 +111,7 @@ def intent_callback(hermes, intent_message):
     elif intent_name == "getList":
         result = get_list()
     elif intent_name == "sendSMS":
-        result = send_sms()
+        result = send()
 
     if state['confirmationPurge']:
         state['confirmationPurge'] = False
