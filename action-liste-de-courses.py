@@ -82,7 +82,6 @@ def del_list():
 
 def send():
     liste = load_list()
-    liste = load_list()
     if not liste:
         return "La liste de courses est vide"
     config = read_configuration_file()
