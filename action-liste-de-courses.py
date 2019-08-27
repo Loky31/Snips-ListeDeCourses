@@ -90,7 +90,7 @@ def del_list():
 
 def send_telegram(msg,chat_id,token):
     bot = telegram.Bot(token=token)
-	bot.sendMessage(chat_id=chat_id, text=msg)
+	bot.sendMessage(chat_id,msg)
 
 def send():
     liste = load_list()
