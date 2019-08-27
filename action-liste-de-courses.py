@@ -82,13 +82,14 @@ def del_list():
 
 def send():
     liste = load_list()
+    liste = load_list()
     if not liste:
         return "La liste de courses est vide"
-	config = read_configuration_file()
-	my_token = config['secret']['TOKEN']
-	my_chat_id= config['secret']['CHAT_ID']
-	my_msg = "Liste de courses: {}".format(", ".join(liste))
-	try:
+    config = read_configuration_file()
+    my_token = config['secret']['TOKEN']
+    my_chat_id= config['secret']['CHAT_ID']
+    my_msg = "Liste de courses: {}".format(", ".join(liste))
+    try:
         response = requests.get(
             "https://api.telegram.org/bot{}/sendMessage?chat_id={}&text={}".format(my_token,my_chat_id,my_msg)
             timeout=2
@@ -97,9 +98,9 @@ def send():
         return "Telegram ne répond pas"
 
     if response == my_msg :
-		return "J'ai envoyé la liste de courses par Telegram"    
-	else:
-		return "Oups!!!! Ca n'a pas marché"
+        return "J'ai envoyé la liste de courses par Telegram"    
+    else:
+        return "Oups!!!! Ca n'a pas marché"
 		
 def intent_callback(hermes, intent_message):
     intent_name = intent_message.intent.intent_name.replace("Loky31:", "")
