@@ -90,14 +90,13 @@ def send():
 	my_msg = "Liste de courses: {}".format(", ".join(liste))
 	try:
         response = requests.get(
-            "https://api.telegram.org/bot{}/sendMessage?chat_id= {}&text= {}".format(my_token,my_chat_id,my_msg)
+            "https://api.telegram.org/bot{}/sendMessage?chat_id={}&text={}".format(my_token,my_chat_id,my_msg)
             timeout=2
         )
     except requests.exceptions.Timeout:
         return "Telegram ne répond pas"
 
-    code = response.status_code
-	if response == my_msg :
+    if response == my_msg :
 		return "J'ai envoyé la liste de courses par Telegram"    
 	else:
 		return "Oups!!!! Ca n'a pas marché"
