@@ -101,7 +101,7 @@ def send():
         return "J'ai envoyé la liste de courses par Telegram"    
     else:
         return "Oups!!!! Ca n'a pas marché"
-		
+        
 def intent_callback(hermes, intent_message):
     intent_name = intent_message.intent.intent_name.replace("Loky31:", "")
     result = None
