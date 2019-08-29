@@ -95,12 +95,12 @@ def send():
     
 #    except requests.exceptions.Timeout:
 #        return "Telegram ne répond pas"
-
+    print (response.content)
     #code = response.status_code
-    if "true" in response.content:
-        return "J'ai envoyé la liste de courses par Telegram"
-    else:
-        return "Oups, Ca n'a pas marché"  
+    #if "\"ok\":true" in response.content:
+    #   return "J'ai envoyé la liste de courses par Telegram"
+    #else:
+    #    return "Oups, Ca n'a pas marché"  
 
 def intent_callback(hermes, intent_message):
     intent_name = intent_message.intent.intent_name.replace("Loky31:", "")
