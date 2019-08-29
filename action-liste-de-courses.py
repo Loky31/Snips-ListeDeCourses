@@ -101,7 +101,7 @@ def send():
 
     #code = response.status_code
 #    if response == telegramData[2]:
-    return "J'ai envoyé la liste de courses par Telegram"
+    #return "J'ai envoyé la liste de courses par Telegram"
 #    else:
 #            return "Oups!!!! Ca n'a pas marché"
 
