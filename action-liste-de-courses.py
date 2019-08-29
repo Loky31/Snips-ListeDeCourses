@@ -5,20 +5,11 @@ import json
 import configparser
 import io
 import requests
-import telegram
 from hermes_python.hermes import Hermes
 from hermes_python.ffi.utils import MqttOptions
 
 state = {'confirmationPurge': False}
 
-config = read_configuration_file()
-my_token = 'config['secret']['TOKEN']'
-my_chat_id= 'config['secret']['CHAT_ID']'
-
-#liste = load_list()
-#if not liste:
-        #return "La liste de courses est vide"
-#my_msg = '"Liste de courses: {}".format(", ".join(liste))'
 
 class SnipsConfigParser(configparser.SafeConfigParser):
     def to_dict(self):
@@ -82,15 +73,9 @@ def get_list():
     return "Voici ce qu'il y a sur la liste de courses: {}".format(
         ", ".join(liste))
 
-
 def del_list():
     save_list(set())
     return "J'ai purgé la liste de courses"
-
-
-def send_telegram(msg,chat_id,token):
-    bot = telegram.Bot(token=token)
-    bot.sendMessage(chat_id=chat_id, text=msg)
 
 def send():
     liste = load_list()
@@ -116,7 +101,7 @@ def send():
         return "J'ai envoyé la liste de courses par Telegram"
     else:
         return "Oups, Ca n'a pas marché"  
-    
+
 def intent_callback(hermes, intent_message):
     intent_name = intent_message.intent.intent_name.replace("Loky31:", "")
     result = None
