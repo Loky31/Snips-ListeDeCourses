@@ -95,7 +95,7 @@ def send():
     
 #    except requests.exceptions.Timeout:
 #        return "Telegram ne répond pas"
-    print (response.content)
+    print (response.text)
     #code = response.status_code
     #if "\"ok\":true" in response.content:
     #   return "J'ai envoyé la liste de courses par Telegram"
