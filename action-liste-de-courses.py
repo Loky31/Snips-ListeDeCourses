@@ -97,7 +97,7 @@ def send():
 #        return "Telegram ne répond pas"
 
     #code = response.status_code
-    if "\"ok\":true" in response:
+    if "true" in response:
         return "J'ai envoyé la liste de courses par Telegram"
     else:
         return "Oups, Ca n'a pas marché"  
